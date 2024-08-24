@@ -13,6 +13,7 @@ function App() {
         </nav>
         <Routes>
           <Route exact path="/">
+            <SearchBar />
             <AddRecipeForm />
             <RecipeList />
           </Route>
