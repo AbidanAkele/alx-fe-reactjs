@@ -12,11 +12,14 @@ function App() {
           <Link to="/">Home</Link>
         </nav>
         <Routes>
-          <Route exact path="/">
-            <SearchBar />
-            <AddRecipeForm />
-            <RecipeList />
-          </Route>
+          <Route exact path="/" element={
+              <>
+                <SearchBar />
+                <AddRecipeForm />
+                <RecipeList />
+              </>
+            } 
+          />
           <Route path="/recipe/:id" render={({ match }) => (
             <RecipeDetails recipeId={Number(match.params.id)} />
           )} />
