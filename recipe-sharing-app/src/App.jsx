@@ -11,7 +11,7 @@ function App() {
         <nav>
           <Link to="/">Home</Link>
         </nav>
-        <Switch>
+        <Routes>
           <Route exact path="/">
             <AddRecipeForm />
             <RecipeList />
@@ -19,7 +19,7 @@ function App() {
           <Route path="/recipe/:id" render={({ match }) => (
             <RecipeDetails recipeId={Number(match.params.id)} />
           )} />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
