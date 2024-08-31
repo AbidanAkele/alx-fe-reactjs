@@ -4,21 +4,34 @@ const RegistrationForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    setErrors({});
+
+    let hasErrors = false;
+    const newErrors = {};
+
     if (!username) {
-      alert('Username field is required!');
-      return;
+      newErrors.username = 'Username field is required!';
+      hasErrors = true;
     }
     if (!email) {
-      alert('Email fields is required!');
-      return;
+      newErrors.email = 'Email field is required!';
+      hasErrors = true;
     }
     if (!password) {
-      alert('Password field is required!');
+      newErrors.password = 'Password field is required!';
+      hasErrors = true;
+    }
+
+    if (hasErrors) {
+      setErrors(newErrors);
       return;
     }
+
     console.log('Form submitted:', { username, email, password });
   };
 
@@ -31,6 +44,7 @@ const RegistrationForm = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        {errors.username && <p className="error">{errors.username}</p>}
       </div>
       <div>
         <label>Email:</label>
@@ -39,6 +53,7 @@ const RegistrationForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && <p className="error">{errors.email}</p>}
       </div>
       <div>
         <label>Password:</label>
@@ -47,6 +62,7 @@ const RegistrationForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && <p className="error">{errors.password}</p>}
       </div>
       <button type="submit">Register</button>
     </form>
