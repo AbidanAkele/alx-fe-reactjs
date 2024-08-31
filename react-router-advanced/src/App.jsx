@@ -19,12 +19,12 @@ function App() {
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
-          } 
+          }
         >
           <Route path="details" element={<ProfileDetails />} />
           <Route path="settings" element={<ProfileSettings />} />
         </Route>
-        <Route path="/post/:id" element={<BlogPost />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
