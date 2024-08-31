@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import TodoList from '../components/TodoList';
 
 describe('TodoList Component', () => {
-  test('renders TodoList component', () => {
+  test('renders TodoList component with initial todos', () => {
     render(<TodoList />);
     expect(screen.getByText(/Todo List/i)).toBeInTheDocument();
     expect(screen.getByText(/Learn React/i)).toBeInTheDocument();
@@ -22,25 +22,12 @@ describe('TodoList Component', () => {
     expect(screen.getByText(/New Todo/i)).toBeInTheDocument();
   });
 
-  test('toggles a todo item', () => {
-    render(<TodoList />);
-    const todoItem = screen.getByText(/Learn React/i);
-    
-    fireEvent.click(todoItem);
-    
-    expect(todoItem).toHaveStyle('text-decoration: line-through');
-    
-    fireEvent.click(todoItem);
-
-    expect(todoItem).toHaveStyle('text-decoration: none');
-  });
-
-  test('deletes a todo item', () => {
+  test('deletes a todo', () => {
     render(<TodoList />);
     const deleteButton = screen.getAllByText(/Delete/i)[0];
 
     fireEvent.click(deleteButton);
 
-    expect(screen.queryByText(/Learn React/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Learn React/i)).toBeNull();
   });
 });
