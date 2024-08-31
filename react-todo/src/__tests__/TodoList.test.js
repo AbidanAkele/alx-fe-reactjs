@@ -4,20 +4,50 @@ import '@testing-library/jest-dom';
 import TodoList from '../components/TodoList';
 
 describe('TodoList Component', () => {
+  test('renders TodoList component', () => {
+    render(<TodoList />);
+    expect(screen.getByText(/Todo List/i)).toBeInTheDocument();
+    expect(screen.getByText(/Learn React/i)).toBeInTheDocument();
+    expect(screen.getByText(/Learn Jest/i)).toBeInTheDocument();
+  });
+
   test('adds a new todo', () => {
     render(<TodoList />);
 
-    // Locate the input field and button in the AddTodoForm
-    const input = screen.getByPlaceholderText(/Add a new todo/i);
-    const button = screen.getByText(/Add Todo/i);
+    const addTodoInput = screen.getByPlaceholderText(/Add a new todo/i);
+    const addTodoButton = screen.getByText(/Add/i);
 
-    // Simulate user input
-    fireEvent.change(input, { target: { value: 'New Todo' } });
+    fireEvent.change(addTodoInput, { target: { value: 'Learn Testing' } });
+    fireEvent.click(addTodoButton);
 
-    // Simulate form submission
-    fireEvent.click(button);
+    expect(screen.getByText(/Learn Testing/i)).toBeInTheDocument();
+  });
 
-    // Verify that the new todo has been added to the list
-    expect(screen.getByText(/New Todo/i)).toBeInTheDocument();
+  test('toggles a todo item', () => {
+    render(<TodoList />);
+
+    const todoItem = screen.getByText(/Learn React/i);
+    fireEvent.click(todoItem);
+
+    expect(todoItem).toHaveClass('completed');
+    fireEvent.click(todoItem);
+    expect(todoItem).not.toHaveClass('completed');
+  });
+
+  test('deletes a todo item', () => {
+    render(<TodoList />);
+
+    const addTodoInput = screen.getByPlaceholderText(/Add a new todo/i);
+    const addTodoButton = screen.getByText(/Add/i);
+
+    fireEvent.change(addTodoInput, { target: { value: 'Learn Testing' } });
+    fireEvent.click(addTodoButton);
+
+    const todoItem = screen.getByText(/Learn Testing/i);
+    const deleteButton = screen.getByText(/Delete/i);
+
+    fireEvent.click(deleteButton);
+
+    expect(todoItem).not.toBeInTheDocument();
   });
 });
